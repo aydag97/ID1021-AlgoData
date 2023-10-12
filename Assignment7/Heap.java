@@ -96,6 +96,12 @@ public class Heap {
         }
         return ret;
     }
+    // swaps the value of two nodes
+    public void swap(Node n1, Node n2){
+        int temp = n1.value;
+        n1.value = n2.value;
+        n2.value = temp;
+    }
 
     public int pushRecursive(int pushedNode, Node current, int depth){
         // if there are no left branches then we should push the item to the right
@@ -107,9 +113,7 @@ public class Heap {
             }
             // but if the pushed is greater than right value, swap those two, increment depth
             else if(pushedNode > current.right.value){
-                int temp = current.value;
-                current.value = current.right.value;
-                current.right.value = temp;
+                swap(current, current.right);
                 depth++;
             }
             // if right branch has more children then check if we should push further
@@ -123,9 +127,7 @@ public class Heap {
                 return depth;
             }
             else if(pushedNode > current.left.value){
-                int temp = current.value;
-                current.value = current.left.value;
-                current.left.value = temp;
+                swap(current, current.left);
                 depth++;
             }
             
@@ -133,13 +135,11 @@ public class Heap {
                 depth = pushRecursive(pushedNode, current.left, depth);
             }
         }
-        // if none of branches is empty, we go to a branch with smaller size
-        else if(current.right.size > current.left.size){
+        // if none of branches is empty, we go to a branch with smaller value (since root should be smallest)
+        else if(current.right.value > current.left.value){
             // all swaping and comparisons are the same as before 
             if(pushedNode > current.left.value){
-                int temp = current.value;
-                current.value = current.right.value;
-                current.right.value = temp;
+                swap(current, current.left);
                 depth++;
             }
             else if(pushedNode < current.left.value){
@@ -152,9 +152,7 @@ public class Heap {
         }
         else{
             if(pushedNode > current.right.value){
-                int temp = current.value;
-                current.value = current.right.value;
-                current.right.value = temp;
+                swap(current, current.right);
                 depth++;
             }
             else if(pushedNode < current.right.value){
@@ -199,5 +197,7 @@ public class Heap {
         int d = h.push(10);
         System.out.println(d);
         h.print();
+        System.out.println(h.root.value);
+        
     } 
 }

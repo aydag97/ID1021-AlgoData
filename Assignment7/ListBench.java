@@ -25,7 +25,7 @@ public class ListBench{
             if(total < min)
                 min = total;
         }  
-        return min;
+        return min/n;
     }
 
     public static double addReverse(int n, int loop, int[] randomArr){
@@ -42,13 +42,14 @@ public class ListBench{
             if(total < min)
                 min = total;
         }  
-        return min;
+        return min/n;
     }
 
     public static double removeList(int n, int loop, int[] randomArr, ListPQ list){
 
         double min = Double.POSITIVE_INFINITY;
         for(int j = 0; j < loop; j++){
+
             for(int i = 0; i < n ; i++){
                 list.add(randomArr[i]);
             }
@@ -61,7 +62,7 @@ public class ListBench{
             if(total < min)
                 min = total;
         }
-        return min;
+        return min/n;
     }
 
     public static double removeReversed(int n, int loop, int[] randomArr, ListPQReversed list){
@@ -80,7 +81,7 @@ public class ListBench{
             if(total < min)
                 min = total;
         }
-        return min;
+        return min/n;
     }
 
     public static void main(String[] args){
@@ -88,7 +89,7 @@ public class ListBench{
         int[] sizes = {100,200,400,800,1600,3200,6400,12800,25600};
         int loop = 20;
 
-        System.out.printf("# Benchmark of add and remove: list vs reversed in millisec\n");
+        System.out.printf("# Benchmark of add and remove: list vs reversed in micros\n");
         System.out.printf("#%7s\t%8s\t%8s\t%8s\t%8s\t%8s\t%8s\n", "n", "add O(1)",
         "remove O(n)","remove/n" ,"add O(n)" ,"add/n", "remove O(1)");
 
@@ -104,8 +105,8 @@ public class ListBench{
             double time3 = addReverse(s, loop, random);
             double time4 = removeReversed(s, loop, random, reversedList);
 
-            System.out.printf("%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\n",time1/1000000, 
-            time2/1000000, time2/(s*s), time3/1000000, time3/(s*s), time4/1000000);
+            System.out.printf("%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\n",time1/1000, 
+            time2/1000, time2/s, time3/1000, time3/s, time4/1000);
 
         }
     }
