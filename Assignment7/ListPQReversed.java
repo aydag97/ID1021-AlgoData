@@ -30,7 +30,6 @@ public class ListPQReversed{
             size++;
             return;
         }
-
         if(item < head.data){
             addedItem.next = head;
             head = addedItem;

@@ -46,6 +46,7 @@ public class Heap {
         }
 
         public Node remove(){
+            size--;
             if(left == null){
                 return right;
             }
@@ -60,7 +61,6 @@ public class Heap {
                 value = left.value;
                 left = left.remove();
             }
-            size--;
             return this;
         }
 
@@ -187,6 +187,10 @@ public class Heap {
         root.print();
     }
 
+    public void clear(){
+        root = null;
+    }
+
     public static void main(String[] args){
         Heap h = new Heap();
         h.enqueue(5);
@@ -207,6 +211,7 @@ public class Heap {
 
         int d1 = h.enqueue(10);
         System.out.println(d1);
-        
     } 
+
+    // kanske bra att ha en clear som tömmer listan för bench
 }
