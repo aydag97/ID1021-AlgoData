@@ -16,29 +16,33 @@ public class Heap {
             size = 1;
         }
 
-        public void add(int item){
-            size ++;
+        public int add(int item, int depth){
+            size++;
             if(item < this.value){
                 int temp = this.value;
                 this.value = item;
                 item = temp;
+                // depth = 1
             }
     
             if(left == null){
                 left = new Node(item);
-                return;
+                return depth;
+                // depth = 1
             }
             else if(right == null){
                 right = new Node(item);
+                return depth;
+                // depth = 1
             }
             else if(left.size <= right.size){
-                left.add(item);
-                return;
+                return left.add(item, depth+1);
             }
             else if(right.size < left.size){
-                right.add(item);
-                return;
+                 
+                return right.add(item, depth+1);
             }
+            return depth;
         }
 
         public Node remove(){
@@ -75,13 +79,15 @@ public class Heap {
         root = null;
     }
 
-    public void enqueue(int item){
+    public int enqueue(int item){
+        int depth = 0;
         if(root == null){
             root = new Node(item);
         }
         else{
-            root.add(item);
+            depth = root.add(item, 1);
         }
+        return depth;
     }
 
     public int dequeue(){
@@ -198,6 +204,9 @@ public class Heap {
         System.out.println(d);
         h.print();
         System.out.println(h.root.value);
+
+        int d1 = h.enqueue(10);
+        System.out.println(d1);
         
     } 
 }
