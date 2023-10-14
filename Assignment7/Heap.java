@@ -16,33 +16,27 @@ public class Heap {
             size = 1;
         }
 
-        public int add(int item, int depth){
+        public void add(int item){
             size++;
+            //if the item is smaller than current then swap 
             if(item < this.value){
                 int temp = this.value;
                 this.value = item;
                 item = temp;
-                // depth = 1
             }
-    
+            //no left children
             if(left == null){
                 left = new Node(item);
-                return depth;
-                // depth = 1
-            }
+            }// no right children
             else if(right == null){
                 right = new Node(item);
-                return depth;
-                // depth = 1
-            }
+            }// if left side has a smaller size
             else if(left.size <= right.size){
-                return left.add(item, depth+1);
+                left.add(item);
             }
             else if(right.size < left.size){
-                 
-                return right.add(item, depth+1);
+                right.add(item);
             }
-            return depth;
         }
 
         public Node remove(){
@@ -64,7 +58,6 @@ public class Heap {
             return this;
         }
 
-
         public void print(){
         if (left != null)
             left.print();
@@ -74,20 +67,20 @@ public class Heap {
         }
     }
 
-
+    // constructor
     public Heap(){
         root = null;
     }
 
-    public int enqueue(int item){
-        int depth = 0;
+    public void enqueue(int item){
         if(root == null){
             root = new Node(item);
+            return;
         }
         else{
-            depth = root.add(item, 1);
+            root.add(item);
+            return;
         }
-        return depth;
     }
 
     public int dequeue(){
@@ -112,20 +105,18 @@ public class Heap {
     public int pushRecursive(int pushedNode, Node current, int depth){
         // if there are no left branches then we should push the item to the right
         if(current.left == null){
-            // if there are no right either or the new pushed value is still smaller than
+            // if there are no right OR the new pushed value is still smaller than
             // the right value then we haven't pushed so return depth
-            if(current.right == null || pushedNode < current.right.value){
+            if(current.right == null || pushedNode < current.right.value)
                 return depth;
-            }
-            // but if the pushed is greater than right value, swap those two, increment depth
+            // if the pushed is greater than right value, swap those two, increment depth
             else if(pushedNode > current.right.value){
                 swap(current, current.right);
                 depth++;
             }
             // if right branch has more children then check if we should push further
-            if(current.right.size != 1){
+            if(current.right.size > 1)
                 depth = pushRecursive(pushedNode, current.right, depth);
-            }
         }
         // if the right branch is empty we go to left and do the same things as before
         else if(current.right == null){
@@ -136,38 +127,30 @@ public class Heap {
                 swap(current, current.left);
                 depth++;
             }
-            
-            if(current.left.size != 1){
+            if(current.left.size > 1)
                 depth = pushRecursive(pushedNode, current.left, depth);
-            }
         }
-        // if none of branches is empty, we go to a branch with smaller value (since root should be smallest)
-        else if(current.right.value > current.left.value){
-            // all swaping and comparisons are the same as before 
+        // if none of branches is empty, we go to a branch with 
+        // smaller value (since root should be smallest)
+        else if(current.right.value > current.left.value){ 
             if(pushedNode > current.left.value){
                 swap(current, current.left);
                 depth++;
             }
-            else if(pushedNode < current.left.value){
+            else if(pushedNode < current.left.value)
                 return depth;
-            }
-
-            if(current.left.size != 1){
+            if(current.left.size > 1)
                 depth = pushRecursive(pushedNode, current.left, depth);
-            }
         }
-        else{
+        else{ // otherwise if right has smaller  value than left
             if(pushedNode > current.right.value){
                 swap(current, current.right);
                 depth++;
             }
-            else if(pushedNode < current.right.value){
+            else if(pushedNode < current.right.value)
                 return depth;
-            }
-
-            if(current.right.size != 1){
+            if(current.right.size > 1)
                 depth = pushRecursive(pushedNode, current.right, depth);
-            }
         }
         return depth;
     }
@@ -179,6 +162,7 @@ public class Heap {
         return pushRecursive(root.value, curr, 0);
     }
 
+    // printing depth-first
     public void print() {
         if (root == null) {
             System.out.println("Tree is empty");
@@ -187,6 +171,7 @@ public class Heap {
         root.print();
     }
 
+    // empty the tree
     public void clear(){
         root = null;
     }
@@ -209,9 +194,7 @@ public class Heap {
         h.print();
         System.out.println(h.root.value);
 
-        int d1 = h.enqueue(10);
-        System.out.println(d1);
+        //int d1 = h.enqueue(10);
+        //System.out.println(d1);
     } 
-
-    // kanske bra att ha en clear som tömmer listan för bench
 }

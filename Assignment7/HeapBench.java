@@ -26,7 +26,7 @@ public class HeapBench {
         }
         return min;
     }
-
+    // bench for removing an item and add it with incr to the array heap
     public static double arrAddB(HeapArr a, int loop, int tries, int n, int[] random){
         Random rnd = new Random();
         double min = Double.POSITIVE_INFINITY;
@@ -74,7 +74,7 @@ public class HeapBench {
         }
         return min;
     }
-
+    //bench for pushing to the array heap
     public static double arrPushB(HeapArr a, int loop, int tries, int n, int[] random){
         Random rnd = new Random();
         double min = Double.POSITIVE_INFINITY;
@@ -100,9 +100,8 @@ public class HeapBench {
 
     public static void main(String[] args){
         Random rand = new Random();
-        // benchmarking of how deep push operations go in the tree
-        // storlek på heap upp till 1600 typ
-        int[] sizes = {100,200,400,800,1600,3200,6400,12800,25600,51200};
+        //int[] sizes = {100,200,400,800,1600,3200,6400,12800,25600,51200};
+        int[] sizes = {100,200,400,800,1000,2000,4000,8000,16000,32000,64000,128000,256000};
         Heap pushHeap = new Heap();
         Heap addHeap = new Heap();
 
@@ -123,7 +122,6 @@ public class HeapBench {
             removeD.enqueue(item);
         }
 
-        
         System.out.println("Pushing elements vs remove/add elements in heap tree vs array in micros");
         System.out.printf("%8s\t%8s\t%8s\t%8s\t%8s\n","#n" , "removeTree","pushTree" ,
          "removeArr", "pushArr");
@@ -145,9 +143,6 @@ public class HeapBench {
 
             System.out.printf("%8.0f\t%8.0f\t%8.0f\t%8.0f\n", timeAdd/1000, timePush/1000,
             timeAddArr/1000, timePushArr/1000);
-
-
         }
-
     }
 }

@@ -121,8 +121,5 @@ public class HeapArr {
         q.print();
         System.out.println();
         System.out.println(d2);
-
-
-    }
-    
+    } 
 }
