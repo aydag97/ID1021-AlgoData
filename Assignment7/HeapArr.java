@@ -1,3 +1,4 @@
+
 public class HeapArr {
     int[] prioArr;
     int arrSize;
@@ -24,8 +25,7 @@ public class HeapArr {
         bubble(parentPos);
     }
 
-    public int sink(int pos){
-        int depth = 0;
+    public int sink(int pos, int depth){
         int childL = (2*pos) + 1;
         int childR = (2*pos) + 2;
         if(childR < itemNo){
@@ -33,26 +33,29 @@ public class HeapArr {
                 if(prioArr[pos] > prioArr[childL]){
                     swap(prioArr, pos, childL);
                     depth++;
-                    sink(childL);
+                    return sink(childL, depth);
                 }
             }
             else{
                 if(prioArr[pos] > prioArr[childR]){
                     swap(prioArr,pos,childR);
                     depth++;
-                    sink(childR);
+                     return sink(childR, depth);
                 }
             }
-
         }
-        
         return depth;
     }
 
     public void add(int item){
         if(itemNo == arrSize){
-            System.out.println("The queue is full!");
-            return;
+            // if arrays is full, allocate more memory
+            int[] newArr = new int[2*arrSize];
+            for(int i = 0; i < arrSize; i++){
+                newArr[i] = prioArr[i];
+            }
+            prioArr = newArr;
+            arrSize = 2*arrSize;
         }
         prioArr[itemNo] = item;
         bubble(itemNo);
@@ -68,14 +71,14 @@ public class HeapArr {
         itemNo--;
         prioArr[0] = prioArr[itemNo];
         prioArr[itemNo] = 0;
-        sink(0);
+        sink(0, 0);
         return ret;
     }
 
     public int push(int incr){
         prioArr[0]+= incr;
-        int d = sink(0);
-        return d;
+        // returns the depth of the pushed item
+        return sink(0 , 0);
     }
 
     public void print(){
@@ -86,6 +89,10 @@ public class HeapArr {
             System.out.printf("%d\t", prioArr[i]);
         }
         System.out.println();
+    }
+
+    public void clear(){
+        prioArr = new int[arrSize];
     }
 
     public static void main(String[] args){
@@ -100,8 +107,22 @@ public class HeapArr {
 
         q.remove();
         q.print();
+        System.out.println();
         q.add(2);
         q.print();
+        System.out.println();
+
+        int d = q.push(10);
+        q.print();
+        System.out.println();
+        System.out.println(d);
+        System.out.println();
+        int d2 = q.push(20);
+        q.print();
+        System.out.println();
+        System.out.println(d2);
+
+
     }
     
 }

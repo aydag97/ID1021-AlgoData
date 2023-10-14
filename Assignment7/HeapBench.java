@@ -2,9 +2,8 @@
 import java.util.Random;
 
 public class HeapBench {
-
+    // bench for removing an item and add it with incr to the tree
     public static double addBench(Heap h, int loop, int tries, int n, int[] random){
-        // h ska vara tom, vi fyller i här men innan nästa loop så tömmer vi det mha clear()
         Random rnd = new Random();
         double min = Double.POSITIVE_INFINITY;
 
@@ -28,8 +27,32 @@ public class HeapBench {
         return min;
     }
 
+    public static double arrAddB(HeapArr a, int loop, int tries, int n, int[] random){
+        Random rnd = new Random();
+        double min = Double.POSITIVE_INFINITY;
+
+        for(int i = 0; i < loop; i++){
+            a.clear();
+            for(int j = 0; j < n; j++){
+                a.add(rnd.nextInt(tries));
+            }
+
+            long start = System.nanoTime();
+            for(int k = 0; k < random.length; k++){
+                int removed = a.remove();
+                a.add(removed + random[k]);
+            }
+            long end = System.nanoTime();
+            double total = end - start;
+
+            if(total < min)
+                min = total;
+        }
+        return min;
+    }
+
+    //bench for pushing to the tree
     public static double pushBench(Heap h, int loop, int tries, int n, int[] random){
-        // h ska vara tom, vi fyller i här men innan nästa loop så tömmer vi det mha clear()
         Random rnd = new Random();
         double min = Double.POSITIVE_INFINITY;
 
@@ -52,13 +75,40 @@ public class HeapBench {
         return min;
     }
 
+    public static double arrPushB(HeapArr a, int loop, int tries, int n, int[] random){
+        Random rnd = new Random();
+        double min = Double.POSITIVE_INFINITY;
+
+        for(int i = 0; i < loop; i++){
+            a.clear();
+            for(int j = 0; j < n; j++){
+                a.add(rnd.nextInt(tries));
+            }
+
+            long start = System.nanoTime();
+            for(int k = 0; k < random.length; k++){
+                a.push(random[k]);
+            }
+            long end = System.nanoTime();
+            double total = end - start;
+
+            if(total < min)
+                min = total;
+        }
+        return min;
+    }
+
     public static void main(String[] args){
         Random rand = new Random();
         // benchmarking of how deep push operations go in the tree
         // storlek på heap upp till 1600 typ
-        int[] sizes = {100,200,400,800,1600,3200,6400,12800};
+        int[] sizes = {100,200,400,800,1600,3200,6400,12800,25600,51200};
         Heap pushHeap = new Heap();
         Heap addHeap = new Heap();
+
+        Heap pushD = new Heap();
+        Heap removeD = new Heap();
+
         int tries = 1000;
         int loop = 100;
         int[] randomArr = new int[tries];
@@ -67,35 +117,37 @@ public class HeapBench {
             randomArr[j] = rand.nextInt(10,1000);
         }
 
-        /*for(int i = 0; i < 1024; i++){
+        for(int i = 0; i < 1024; i++){
             int item = rand.nextInt(10000);
-            pushHeap.enqueue(item);
-            addHeap.enqueue(item);
-        }*/
+            pushD.enqueue(item);
+            removeD.enqueue(item);
+        }
 
         
-        System.out.println("Pushing elements vs remove/add elements in heap tree in micros");
-        System.out.printf("%8s\t%8s\t%8s\n","#n" , "remove", "push");
+        System.out.println("Pushing elements vs remove/add elements in heap tree vs array in micros");
+        System.out.printf("%8s\t%8s\t%8s\t%8s\t%8s\n","#n" , "removeTree","pushTree" ,
+         "removeArr", "pushArr");
 
         for(int n : sizes){
             System.out.printf("%8d\t", n);
+            HeapArr arr = new HeapArr(n);
             double timeAdd = addBench(addHeap, loop, tries, n, randomArr);
             double timePush = pushBench(pushHeap, loop, tries, n, randomArr);
-            System.out.printf("%8.0f\t%8.0f\n", timeAdd/1000, timePush/1000);
+
+            double timeAddArr = arrAddB(arr, loop, tries, n, randomArr);
+            double timePushArr = arrPushB(arr, loop, tries, n, randomArr);
+
+            //int incr = rand.nextInt(10, 50);
+            // how deep it goes when pushing/adding
+            /*int depth = pushD.push(incr);
+            int removed = removeD.dequeue();
+            int d = removeD.enqueue(removed+incr);*/
+
+            System.out.printf("%8.0f\t%8.0f\t%8.0f\t%8.0f\n", timeAdd/1000, timePush/1000,
+            timeAddArr/1000, timePushArr/1000);
 
 
         }
-
-        /*for(int k = 0; k < 15;k++){
-            int incr = rand.nextInt(10, 15);
-            // mät tiden på denhär
-            int depth = pushHeap.push(incr);
-            // mät tiden på denhär och jämföra med andra (antal tries 100 och k = 1000)
-            // ha den som vanligt i en method
-            int removed = addHeap.dequeue();
-            int d = addHeap.enqueue(removed+incr);
-            System.out.printf("%8d\t%8d\t%8d\n",incr,depth, d);
-        }*/
 
     }
 }
