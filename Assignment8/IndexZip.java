@@ -21,13 +21,11 @@ public class IndexZip{
         data = new Node[100000];
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
-            //int i = 0;
             while((line = br.readLine()) != null){
                 String[] row = line.split(",");
                 Integer code = Integer.valueOf(row[0].replaceAll("\\s",""));
                 data[code] = new Node(code ,row[1], Integer.valueOf(row[2]));
             }
-            //max = i-1;
         }catch(Exception e){
             System.out.println("File " + file + " not found!");
         }

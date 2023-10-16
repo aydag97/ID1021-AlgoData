@@ -108,7 +108,7 @@ public class IntegerZip{
         linearBench(tries, loop, f, s2);
         binBench(tries, loop, f, s1);
         binBench(tries, loop, f, s2);
-        
+        // bench
         double lin1 = linearBench(tries, loop, f, s1);
         double lin2 = linearBench(tries, loop, f, s2);
         double bin1 = binBench(tries, loop, f, s1);

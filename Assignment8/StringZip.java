@@ -102,6 +102,7 @@ public class StringZip{
         String s2 = "983 99";
         int tries = 100;
         int loop = 100;
+        // bench
         double lin1 = linearBench(tries, loop, f, s1);
         double lin2 = linearBench(tries, loop, f, s2);
         double bin1 = binBench(tries, loop, f, s1);
