@@ -63,12 +63,12 @@ public class Hash{
         System.out.println("\n4. size matters");
         System.out.printf("\n%4s\t%8s\n" , "mod", "collisions");
 
-        /*for(int mod: mods){
+        for(int mod: mods){
             Hash h = new Hash("postnummer.csv", mod);
             System.out.println();
             h.collisions(mod);
         }
-        System.out.println();*/
+        System.out.println();
         Hash h = new Hash("postnummer.csv", 10000);
         String s = h.lookup(11115);
         System.out.println(s);
