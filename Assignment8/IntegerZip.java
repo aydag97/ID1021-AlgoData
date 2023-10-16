@@ -96,7 +96,6 @@ public class IntegerZip{
         return min/loop;
     }
 
-
     public static void main(String[] args){
         IntegerZip f = new IntegerZip("postnummer.csv");
         Integer s1 = 11115;

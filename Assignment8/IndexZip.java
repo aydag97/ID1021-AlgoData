@@ -44,28 +44,6 @@ public class IndexZip{
         return false;
     }
 
-    /*public boolean binary(Integer zip){
-        int first = 0;
-        int last = data.length-1;
-
-        while (true) {
-            int mid = (first+last)/2;
-            if (data[mid].code.equals(zip)) {
-                return true;
-            }
-            if (data[mid].code < zip && mid < last) {
-                first =  mid + 1;
-                continue;
-            }
-            if (data[mid].code > zip && mid > first) {
-                last = mid - 1 ;
-                continue;
-            }
-            break;
-        }
-        return false;
-    }*/
-
     public static double lookBench(int tries, int loop, IndexZip file, Integer s){
         double min = Double.POSITIVE_INFINITY;
         for(int k = 0; k < tries; k++){
@@ -81,22 +59,6 @@ public class IndexZip{
         }
         return min/loop;
     }
-
-    /*public static double binBench(int tries, int loop, IndexZip file, Integer s){
-        double min = Double.POSITIVE_INFINITY;
-        for(int k = 0; k < tries; k++){
-
-            long start = System.nanoTime();
-            for(int i = 0; i < loop; i++)
-                file.binary(s);
-            
-            long end = System.nanoTime();
-            double total = end - start;
-            if(total  < min)
-                min = total;
-        }
-        return min/loop;
-    }*/
 
 
     public static void main(String[] args){

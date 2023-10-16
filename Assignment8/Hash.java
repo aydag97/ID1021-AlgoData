@@ -68,7 +68,6 @@ public class Hash{
             System.out.println();
             h.collisions(mod);
         }
-        
         System.out.println();
         Hash h = new Hash("postnummer.csv", 10000);
         String s = h.lookup(11115);
