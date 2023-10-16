@@ -105,8 +105,8 @@ public class ListBench{
             double time3 = addReverse(s, loop, random);
             double time4 = removeReversed(s, loop, random, reversedList);
 
-            System.out.printf("%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\n",time1/1000, 
-            time2/1000, time2/s, time3/1000, time3/s, time4/1000);
+            System.out.printf("%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\t%8.3f\n",time1, 
+            time2, time2/s, time3, time3/s, time4);
 
         }
     }

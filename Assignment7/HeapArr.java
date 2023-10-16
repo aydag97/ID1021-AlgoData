@@ -19,6 +19,7 @@ public class HeapArr {
     public void bubble(int pos){
         if(pos == 0)
             return;
+        // finding the parent position
         int parentPos = (pos-1)/2;
         if(prioArr[pos] < prioArr[parentPos])
             swap(prioArr,pos,parentPos);
@@ -83,7 +84,7 @@ public class HeapArr {
 
     public void print(){
         if(itemNo == 0){
-            System.out.println("Th list is empty");
+            System.out.println("The list is empty");
         }
         for(int i = 0; i < itemNo; i++){
             System.out.printf("%d\t", prioArr[i]);
