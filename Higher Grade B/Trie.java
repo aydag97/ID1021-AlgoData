@@ -14,8 +14,9 @@ public class Trie{
             valid = false;
         }
         // finds words that are valid and adds them to a list
-        public void collect(String keySeq, String word, ArrayList<String> list, int index) {
-            // base case: if the word is valid then add it to the list otherwise return(no word found)
+        public void collect(String keySeq, String word, ArrayList<String> list, int index){
+            // base case: if the word is valid then add it to the list,
+            // otherwise return(no word found)
             if(index == keySeq.length()){
                 if(valid){
                     list.add(word);
@@ -29,19 +30,18 @@ public class Trie{
             int key = Character.getNumericValue(keySeq.charAt(index));
             // get the index of key in the tree: if key is 3 then index is 2
             int indx = getIndexofKey(key);
-            
             // iterate over all three branches for the given key
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++){
                 String possiblePath = "";
                 if(next[(indx*3)+i] != null){
                     //indx*3+i allows to iterate over all branches of a key
                     possiblePath = word + getChar((indx*3) + i);
-                    next[(indx*3) + i].collect(keySeq, possiblePath,list, index+1);
+                    next[(indx*3)+i].collect(keySeq, possiblePath,list, index+1);
                 }
             }
         }
     }
-    // constructor for the Trie class; reads a file and constructs a tree of it
+    // constructor for the Trie class; reads a file and populates the tree
     public Trie(String file){
         root = new Node();
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -107,7 +107,7 @@ public class Trie{
             ret = (char) (97 + c);
         else if(c >= 16 && c <= 20) // r to v
             ret = (char) (97 + c + 1);
-        else if(c >= 21 && c <= 23)
+        else if(c >= 21 && c <= 23) // x to z
             ret = (char) (97 + c + 2);
         else if(c == 24)
             ret = 'å';
@@ -144,7 +144,7 @@ public class Trie{
         System.out.print(Trie.getKeyofChar('e'));
         System.out.println();;
         
-        String key = "669551522";
+        String key = "669551522"; // spännande
 
         ArrayList<String> allWords = tree.decode(key);
 
