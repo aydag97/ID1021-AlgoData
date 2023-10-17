@@ -32,6 +32,8 @@ public class IndexZip{
     }
 
     public String lookup(Integer zip){
+        if(data[zip] == null)
+            return null;
         return data[zip].name;
     }
 
@@ -50,7 +52,7 @@ public class IndexZip{
 
             long start = System.nanoTime();
             for(int i = 0; i < loop; i++)
-                file.linear(s);
+                file.lookup(s);
             
             long end = System.nanoTime();
             double total = end - start;

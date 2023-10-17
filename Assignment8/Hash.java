@@ -4,6 +4,8 @@ import java.io.FileReader;
 public class Hash{
     Node[] data;
     int[] keys;
+    int[] buckts; //??
+
     int max;
     int mod;
 
@@ -38,7 +40,7 @@ public class Hash{
             System.out.println("File " + file + " not found!");
         }
     }
-
+    // change this after fixing buckets
     public String lookup(Integer zip){
         return data[zip%mod].name;
     }
@@ -59,7 +61,7 @@ public class Hash{
     }
 
     public static void main(String[] args){
-        int[] mods = {10000,20000,30000,40000,12345,13513,13600,14000};
+        int[] mods = {10000,20000,30000,40000,12345,13513,13600,14000,100000};
         System.out.println("\n4. size matters");
         System.out.printf("\n%4s\t%8s\n" , "mod", "collisions");
 
@@ -68,9 +70,11 @@ public class Hash{
             System.out.println();
             h.collisions(mod);
         }
-        System.out.println();
+        /*System.out.println();
         Hash h = new Hash("postnummer.csv", 10000);
         String s = h.lookup(11115);
-        System.out.println(s);
+        System.out.println(s);*/
     }
+
+    
 }
