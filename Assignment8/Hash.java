@@ -4,8 +4,6 @@ import java.io.FileReader;
 public class Hash{
     Node[] data;
     int[] keys;
-    int[] buckts; //??
-
     int max;
     int mod;
 
@@ -75,6 +73,4 @@ public class Hash{
         String s = h.lookup(11115);
         System.out.println(s);*/
     }
-
-    
 }
