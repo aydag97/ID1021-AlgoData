@@ -142,7 +142,7 @@ public class Trie{
         System.out.print(Trie.getKeyofChar('n'));
         System.out.print(Trie.getKeyofChar('d'));
         System.out.print(Trie.getKeyofChar('e'));
-        System.out.println();;
+        System.out.println();
         
         String key = "669551522"; // spännande
 
