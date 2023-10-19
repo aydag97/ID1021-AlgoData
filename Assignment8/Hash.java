@@ -59,7 +59,7 @@ public class Hash{
     }
 
     public static void main(String[] args){
-        int[] mods = {10000,20000,30000,40000,12345,13513,13600,14000,100000};
+        int[] mods = {10000,12345,13513,13600,14000,20000,30000,40000,100000};
         System.out.println("\n4. size matters");
         System.out.printf("\n%4s\t%8s\n" , "mod", "collisions");
 
