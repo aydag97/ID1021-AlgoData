@@ -20,7 +20,7 @@ public class Trie{
             if(index == keySeq.length()){
                 if(valid){
                     list.add(word);
-                    return;
+                    return; 
                 }
                 else{
                     return;
@@ -144,7 +144,7 @@ public class Trie{
         System.out.print(Trie.getKeyofChar('e'));
         System.out.println();
         
-        String key = "669551522"; // spännande
+        String key = "324"; // spännande
 
         ArrayList<String> allWords = tree.decode(key);
 
