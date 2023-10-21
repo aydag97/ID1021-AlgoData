@@ -7,7 +7,7 @@ import java.util.Random;
 * in the collision spots, all nodes with same hash are linked to 
 * each other thanks to the next pointer*/
 
-public class BetterHash{
+public class BucketHash{
     Node[] data;
     static int[] keys;
     int max;
@@ -27,7 +27,7 @@ public class BetterHash{
         }
     }
 
-    public BetterHash(String file , int mod){
+    public BucketHash(String file , int mod){
         this.mod = mod;
         data = new Node[mod];
         keys = new int[9676];
@@ -84,35 +84,19 @@ public class BetterHash{
         }
     }
 
-    public void collisions(int mod){
-        int[] data = new int[mod];
-        int[] cols = new int[10];
-        for (int i = 0; i < max; i++){
-            Integer index = keys[i] % mod;
-            cols[data[index]]++;
-            data[index]++;
-        }
-        System.out.print(mod + " |");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("\t" + cols[i]);
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args){
-        int[] mods = {10000,12345,13513,13600,14000,20000,30000,40000};
-        //int[] mods = {31327};
-       System.out.println("\n5. slightly better");
+        int[] mods = {10000,13513,20000,28447,31327};
+       System.out.println("\n5. handling collisions: buckets");
+       Random rnd = new Random();
+        int r = rnd.nextInt(9676);
         for(int m: mods){
             System.out.println();
             System.out.println("Array size: " + m);
-            BetterHash h = new BetterHash("postnummer.csv", m);
-            Random rnd = new Random();
-            Integer k = keys[rnd.nextInt(9676)];
+            BucketHash h = new BucketHash("postnummer.csv", m);
+            Integer k = keys[r];
             System.out.println("The Post Code: " + k);
             String s = h.lookup(k);
             System.out.println("City: " + s);
         }
     }
 }
-

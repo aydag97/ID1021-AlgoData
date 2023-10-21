@@ -99,9 +99,9 @@ public class StringZip{
     public static void main(String[] args){
         StringZip f = new StringZip("postnummer.csv");
         String s1 = "111 15";
-        String s2 = "983 99";
-        int tries = 100;
-        int loop = 100;
+        String s2 = "984 99";
+        int tries = 1;
+        int loop = 1000;
         // warm up
         linearBench(tries, loop, f, s1);
         linearBench(tries, loop, f, s2);

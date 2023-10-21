@@ -45,46 +45,33 @@ public class OAHash{
     }
     /* collisions? find the next empty spot!*/
     public void add(Integer code, Node n){
-        Integer hashKey = code%mod;
+        Integer hashKey = code % mod;
         while(data[hashKey] != null){
-            hashKey++;
+            // wrap around
+            hashKey = (hashKey + 1) % mod; 
         }
         data[hashKey] = n;
-        
     }
-
+   
     public String lookup(Integer zip){
 
         Integer hashKey = zip%mod;
         int number = 0;
-        while(!(data[hashKey].code.equals(zip))){
-            hashKey++;
+
+        while(data[hashKey] != null && !(data[hashKey].code.equals(zip))){
+            // wrap around
+            hashKey = (hashKey + 1) % mod;
             number++;
         }
-        System.out.println("the step counter: " + number);
+        System.out.println("The number of cities to look before: " + number);
         return data[hashKey].name;
     }
 
-    public void collisions(int mod){
-        int[] data = new int[mod];
-        int[] cols = new int[10];
-        for (int i = 0; i < max; i++){
-            Integer index = keys[i] % mod;
-            cols[data[index]]++;
-            data[index]++;
-        }
-        System.out.print(mod + " |");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("\t" + cols[i]);
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args){
-        int[] mods = {13513,20000,30000,31327,40000};
+        int[] mods = {10000,13513,20000,28447,31327};
         Random rnd = new Random();
         int r = rnd.nextInt(9676);
-       System.out.println("\n5. slightly better");
+       System.out.println("\n6. slightly better");
         for(int m: mods){
             System.out.println();
             System.out.println("Array size/mod: " + m);
@@ -94,5 +81,6 @@ public class OAHash{
             String s = h.lookup(k);
             System.out.println("City: " + s);
         }
+        System.out.println();
     }
 }

@@ -35,7 +35,7 @@ public class IntegerZip{
 
     public boolean linear(Integer zip){
         for(int i = 0; i < max; i++){
-            if(data[i].code == zip){
+            if(data[i].code.equals(zip)){
                 return true;
             }
         }
@@ -51,11 +51,11 @@ public class IntegerZip{
             if (data[mid].code.equals(zip)) {
                 return true;
             }
-            if (data[mid].code < zip && mid < last) {
+            if (data[mid].code.compareTo(zip)<0 && mid < last) {
                 first =  mid + 1;
                 continue;
             }
-            if (data[mid].code > zip && mid > first) {
+            if (data[mid].code.compareTo(zip) > 0 && mid > first) {
                 last = mid - 1 ;
                 continue;
             }
@@ -99,9 +99,10 @@ public class IntegerZip{
     public static void main(String[] args){
         IntegerZip f = new IntegerZip("postnummer.csv");
         Integer s1 = 11115;
-        Integer s2 = 98399;
-        int tries = 100;
-        int loop = 100;
+        Integer s2 = 98499;
+        int tries = 1;
+        int loop = 1000;
+
         // warm up
         linearBench(tries, loop, f, s1);
         linearBench(tries, loop, f, s2);
@@ -118,5 +119,6 @@ public class IntegerZip{
         System.out.printf("%8s\t%8.0f\t%8.0f\n", s1, lin1, bin1);
         System.out.printf("%8s\t%8.0f\t%8.0f\n", s2, lin2, bin2);
         System.out.println();
+
     }
 }
