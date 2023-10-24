@@ -1,10 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+// read the file and create a graph of it
 public class Map{
 
     private City[] cities;
-    private final int mod = 541;
+    private final int mod = 541; // prime number (used in hash function)
     private int size;
 
     public Map(String file){
@@ -22,10 +23,10 @@ public class Map{
                 two.connect(one, dist);
             }
         }catch(Exception e){
-            System.out.println("Error: " + e);
+            System.out.println("Error found: " + e);
         }
     }
-
+    
     private Integer hash(String name){
         int hash = 0;
         for (int i = 0; i < name.length(); i++) {
@@ -34,6 +35,7 @@ public class Map{
         return Math.floorMod(hash, mod);
     }
 
+    // returns the city we look for
     public City find(String name){
         Integer hashKey = hash(name);
         while(true){
@@ -48,7 +50,7 @@ public class Map{
         }
     }
 
-
+    // searches for a city, if it can't find it then it adds the city to graph
     public City lookup(String name){
         Integer hashKey = hash(name);
        // int colisions = 0; // inga collisions

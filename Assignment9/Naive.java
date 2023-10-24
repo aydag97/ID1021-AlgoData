@@ -1,3 +1,9 @@
+
+/*
+* first task: finding the shortest path between two cities
+* given a max distance (not the best solution)
+*/
+
 public class Naive {
 
     public static Integer shortest(City start, City destination, Integer max){

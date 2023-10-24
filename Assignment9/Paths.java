@@ -1,3 +1,10 @@
+
+/*
+* second task: finding the shortest path between two cities
+* without a predefined max distance. instead detect loops
+* by adding the visited cities to a stack
+*/
+
 public class Paths{
     public City[] path;
     public int sp;
@@ -9,16 +16,19 @@ public class Paths{
 
     private Integer shortest(City start, City destination){
         
+        // if we go to a city that we already visited, then return null
         for (int i = 0; i < sp; i++) {
           if (path[i] == start)
             return null;
         }
+        // add the city we are in to the stack
         path[sp++] = start;
+
         if(start == destination)
             return 0;
         
         Integer minPath = null;
-        for(Connection conn : start.neighbours){
+        for(Connection conn : start.neighbours){ //checking all neighbours of start city
             Integer dist = shortest(conn.city, destination);
             if(dist != null){
                 if(minPath == null || minPath > dist + conn.distance)
@@ -33,7 +43,7 @@ public class Paths{
         Paths path = new Paths();
         
         Map map = new Map("trains.csv");
-        String[] city = { "Göteborg", "Sundsvall"};
+        String[] city = {"Malmö", "Kiruna"};
 
         City from = map.find(city[0]);
         City to = map.find(city[1]);
