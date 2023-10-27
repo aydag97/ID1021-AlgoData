@@ -15,28 +15,29 @@ public class ImprovedPaths{
         sp = 0;
     }
 
-    public Integer shortest(City start, City destination, Integer max){
+    private Integer shortest(City start, City destination, Integer max){
         if(max != null && max < 0)
             return null;
+
+        if(start == destination)
+            return 0;
         
         for (int i = 0; i < sp; i++) {
           if (path[i] == start)
             return null;
         }
-        
-        
-        if(start == destination)
-            return 0;
-        
+    
         path[sp++] = start;
         Integer minPath = null;
+
         for(Connection conn : start.neighbours){
             Integer dist = shortest(conn.city, destination,(max != null) ? max-conn.distance: null);
             if(dist != null){
-                if(minPath == null || minPath > dist + conn.distance)
+                if(minPath == null || minPath > dist + conn.distance){
                     minPath = dist + conn.distance;
-                if(((minPath != null) && max == null)|| minPath < max )
+                if(((minPath != null) && max == null)|| minPath < max)
                     max = minPath;
+                }
             }
         }
         path[sp--] = null;
@@ -62,4 +63,3 @@ public class ImprovedPaths{
         System.out.println("shortest: " + dist + " min (" + time + " ms)\n");
     }    
 }
-

@@ -16,8 +16,8 @@ public class Map{
             String line;
             while((line = br.readLine()) != null){
                 String[] row = line.split(",");
-                City one = lookup(row[0]);
-                City two = lookup(row[1]);
+                City one = lookupAdd(row[0]);
+                City two = lookupAdd(row[1]);
                 Integer dist = Integer.valueOf(row[2]);
                 one.connect(two, dist);
                 two.connect(one, dist);
@@ -51,20 +51,15 @@ public class Map{
     }
 
     // searches for a city, if it can't find it then it adds the city to graph
-    public City lookup(String name){
+    public City lookupAdd(String name){
         Integer hashKey = hash(name);
-       // int colisions = 0; // inga collisions
-
         while(true){
             if(cities[hashKey] == null){
                 City city = new City(name);
                 cities[hashKey] = city;
-                size++;
                 return city;
             }
             if(cities[hashKey].name.equals(name)){
-                //colisions++;
-               // System.out.println("number of collisions: " + colisions);
                 return cities[hashKey];
             }
             hashKey = (hashKey + 1) % mod;

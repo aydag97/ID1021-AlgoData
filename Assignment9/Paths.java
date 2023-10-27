@@ -15,19 +15,18 @@ public class Paths{
     }
 
     private Integer shortest(City start, City destination){
-        
+        if(start == destination)
+            return 0;
+
         // if we go to a city that we already visited, then return null
         for (int i = 0; i < sp; i++) {
           if (path[i] == start)
             return null;
         }
         // add the city we are in to the stack
-        path[sp++] = start;
-
-        if(start == destination)
-            return 0;
-        
+        path[sp++] = start;  
         Integer minPath = null;
+
         for(Connection conn : start.neighbours){ //checking all neighbours of start city
             Integer dist = shortest(conn.city, destination);
             if(dist != null){
@@ -52,8 +51,8 @@ public class Paths{
 
         long  t0 = System.nanoTime();
         Integer dist = path.shortest(from, to);
-        long time = (System.nanoTime() - t0)/1000;
+        long time = (System.nanoTime() - t0)/1000000;
 
-        System.out.println("shortest: " + dist + " min (" + time + " us)\n");
+        System.out.println("shortest: " + dist + " min (" + time + " ms)\n");
     }    
 }
