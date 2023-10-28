@@ -18,7 +18,7 @@ public class Bench{
 
         for(String city : cities){
 
-            Double min = Double.POSITIVE_INFINITY;
+            double min = Double.POSITIVE_INFINITY;
             City to = m.find(city);
 
             for(int i = 0; i < 1000; i++){
@@ -27,7 +27,7 @@ public class Bench{
                 djk.search(from, to);
                 long t1 = System.nanoTime();
 
-                double time = (t1 - t0)/1000;
+                double time = (t1 - t0);
 
                 if(time < min)
                     min = time;
@@ -35,7 +35,7 @@ public class Bench{
             
             dist = djk.getDistance(to);
             int n = djk.getDoneLen();
-            System.out.printf("%8s\t%8d\t%8.0f\t%8d\t%8.2f\n", city, dist, min, n,
+            System.out.printf("%8s\t%8d\t%8.2f\t%8d\t%8.2f\n", city, dist, min/1000, n,
             min/(n*Math.log(n)));
             System.out.println();
         }
